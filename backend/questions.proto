@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package QuestionSearch;
+
+// Service definition
+service QuestionSearch {
+  rpc SearchQuestions (SearchRequest) returns (SearchResponse);
+}
+
+// Request message for searching questions
+message SearchRequest {
+  string query = 1;         // Search query
+  int32 page = 2;           // Current page number
+  int32 pageSize = 3;       // Number of questions per page
+}
+
+// Individual question structure
+message Question {
+  string id = 1;                     // Unique question ID
+  string type = 2;                   // Type of question (MCQ or MCM)
+  string title = 3;                  // Question title
+  repeated Option options = 4;       // List of answer options
+  bool isCorrect = 5;                // Whether the question was answered correctly
+}
+
+// Structure for an individual option
+message Option {
+  string text = 1;                   // Option text
+  bool isCorrectAnswer = 2;                // Indicates if this option is correct
+}
+
+// Response message for a search
+message SearchResponse {
+  repeated Question questions = 1;   // List of questions matching the search
+  int32 total = 2;                   // Total number of matching questions
+}
